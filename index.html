@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <button type="button" onclick="handleClick()">Click Here</button> 
+    <a
+      href="./notfound.html"
+      onclick="console.log('link was clicked');return false;"
+      >Click here</a
+    >
+
+    <script>
+      function handleClick() {
+        console.log('the button was clicked');
+      }
+    </script>-->
+
+    <script>
+      const javascript = {
+        name: 'javascript',
+        libraries: ['React', 'Vue', 'Angular'],
+        printLibraries: function () {
+          //   console.log(this);
+          /*
+          this.libraries.forEach(library => {
+            console.log(this);
+            console.log(`${this.name} loves ${library}`);
+          });\
+          */
+          //  Or,
+          /*
+          this.libraries.forEach(
+            function (library) {
+              console.log(this);
+              console.log(`${this.name} loves ${library}`);
+            }.bind(this)
+          );
+          */
+          // Or,
+          let self = this;
+          this.libraries.forEach(function (library) {
+            console.log(this);
+            console.log(`${self.name} loves ${library}`);
+          });
+        },
+      };
+      javascript.printLibraries();
+    </script>
+  </body>
+</html>
