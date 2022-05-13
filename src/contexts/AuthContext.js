@@ -16,7 +16,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
@@ -25,8 +25,8 @@ export function AuthProvider({ children }) {
       setCurrentUser(user);
       setLoading(false);
     });
-    return unsubscribe;
-  }, []);
+    return unsubscribe; // cleanup
+  }, []); // 'onAuthStateChange' function is that informs firebase whenever you logged out
 
   // signup function
   async function signup(email, password, username) {
@@ -36,12 +36,12 @@ export function AuthProvider({ children }) {
     // update profile
     await updateProfile(auth.currentUser, {
       displayName: username,
-    });
+    }); // can give a profile photo with 'photoURL' property like 'displayName'
 
     const user = auth.currentUser;
     setCurrentUser({
       ...user,
-    });
+    }); // it's our currentUser, not belongs to firebase so we have to update it
   }
 
   // login function
@@ -63,5 +63,9 @@ export function AuthProvider({ children }) {
     logout,
   };
 
-  return <AuthContext.Provider>{!loading && children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 }
